@@ -70,7 +70,7 @@ public class QintessService {
 
         //ordenar por edad y generar respuesta
         for (int i = 0; i < ages.size(); i++){
-            for (int j = 0; j < list.size() - 1; j++){
+            for (int j = 0; j < list.size(); j++){
                 List<String> names = new ArrayList<>();
                 if (list.get(j).getAge() == ages.get(i)){
                     personList person = new personList(list.get(j).getAge(),list.get(j).getName());
