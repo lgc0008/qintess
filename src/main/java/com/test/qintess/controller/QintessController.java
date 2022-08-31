@@ -5,22 +5,29 @@ import com.test.qintess.dto.personList;
 import com.test.qintess.dto.personListResult;
 import com.test.qintess.service.QintessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping(value="/qintess",produces = MediaType.APPLICATION_JSON_VALUE)
 public class QintessController {
 
     @Autowired
     QintessService qintessService;
 
+    @GetMapping("/sortAge")
     public List<personListResult> getSortedAge(){
         List<personList> list = getList();
         return qintessService.getSortedAge(list);
     }
 
+    @GetMapping("sortAgeName")
     public List<personListResult> getSortedAgeName(){
         List<personList> list = getList();
         return qintessService.getSortedAgeandName(list);

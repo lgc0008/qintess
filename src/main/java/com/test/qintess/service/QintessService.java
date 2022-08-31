@@ -1,5 +1,6 @@
 package com.test.qintess.service;
 
+import com.sun.webkit.dom.HTMLCollectionImpl;
 import com.test.qintess.dto.personList;
 import com.test.qintess.dto.personListResult;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class QintessService {
 
         //ordenar por edad y generar respuesta
         for (int i = 0; i < ages.size(); i++){
-            for (int j = 0; i < list.size(); j++){
+            for (int j = 0; j < list.size(); j++){
                 if (list.get(j).getAge() == ages.get(i)){
                     personList person = new personList(list.get(j).getAge(),list.get(j).getName());
                     personListResult personListResult = new personListResult(ages.get(i),person);
@@ -38,6 +39,12 @@ public class QintessService {
                 }
             }
         }
+        Collections.sort(result, new Comparator<personListResult>() {
+            @Override
+            public int compare(personListResult o1, personListResult o2) {
+                return new Integer(o1.getAge()).compareTo(new Integer(o2.getAge()));
+            }
+        });
         return result;
     }
 
@@ -63,7 +70,7 @@ public class QintessService {
 
         //ordenar por edad y generar respuesta
         for (int i = 0; i < ages.size(); i++){
-            for (int j = 0; i < list.size(); j++){
+            for (int j = 0; j < list.size() - 1; j++){
                 List<String> names = new ArrayList<>();
                 if (list.get(j).getAge() == ages.get(i)){
                     personList person = new personList(list.get(j).getAge(),list.get(j).getName());
@@ -83,7 +90,7 @@ public class QintessService {
         for (int k = 0; k < ages.size(); k++){
             for (int m = 0; m < resultPerson_sorted.size(); m++){
                 if (ages.get(k) == resultPerson_sorted.get(m).getAge()){
-                    personList person = null;
+                    personList person = new personList(0,"");
                     person.setAge(resultPerson_sorted.get(m).getAge());
                     person.setName(resultPerson_sorted.get(m).getName());
                     result.add(new personListResult(ages.get(k),person));
@@ -93,5 +100,6 @@ public class QintessService {
 
         return result;
     }
+
 
 }
